@@ -1,0 +1,8 @@
+Prerequisites:
+- GNU Make
+- GCC (tested on 4.8)
+
+To compile type make. 
+This will create an executable mpl in this directory. 
+Tested on Linux platforms only. 
+
