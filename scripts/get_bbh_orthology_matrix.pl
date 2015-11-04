@@ -19,7 +19,6 @@ get_bbh_orthology_matrix.pl
      Options:
 	   -r		'ref_species' [MANDATORY] taxID of the reference species for bbh calculation
 	   -s		'tax2spec_file' [MANDATORY] file containing a tabular list of the 'taxIDs\tspecies_name' pairs for the species of interest
-	   -l		'protein_list' [OPTIONAL] file containing the subset of "tree d from the reference species (if not specified all the proteins in the provided trees from reference species will be used)
 	   -d1		'tree_dir' [MANDATORY] directory containing the set of trees formatted to treebest
 	   -d2		'ortho_dir' [MANDATORY] directory containing the set of orthology assignment obtained by treebest for the trees in 'tree_dir'
 	   -o		'output_file'
@@ -60,7 +59,7 @@ $"="\t";
 
 
 my ($coloc_file,$peaks_file,$output_file,$ref_spec,$tax2spec_file,$tree_dir,$ortho_dir,$opt_help);
-my (@tr,@specs,@spec_names);
+my (@tr,@specs,@spec_names,@ref_prots);
 my (%tax2spec);
 
 # Get commandline arguments
@@ -69,8 +68,7 @@ GetOptions ("r=s" => \$ref_spec,
 			'd1=s' => \$tree_dir,
 			'd2=s' => \$ortho_dir,
 			"o=s" => \$output_file,
-			"l=s" => \$input_list,
-			'help!' =>  \$opt_help,
+			'help!' =>  \$opt_help
 			) or pod2usage( "Try '$0 --help' for more information." ) && exit;
 
 pod2usage( -verbose => 2 ) if $opt_help || !$tree_dir || !$ortho_dir || !$tax2spec_file || !$ref_spec || !$output_file;
@@ -88,17 +86,6 @@ while(<TAX2SPEC>)
 	push @spec_names,$tr[1];
 }
 close TAX2SPEC;
-
-open PROTLIST, "$prot_list"  or die "I couldn't open $prot_list\n";
-while(<PROTLIST>)
-{
-	chomp;
-	@tr=split/[\-\s]/;
-	$tree_prot{$tr[1]}=$tr[0];
-	push @ref_prots,$tr[0];
-	push @trees,$tr[1];
-}
-close PROTLIST;
 
 
 open ORTTREE_FILE, ">$output_file" or die "I couldn't open $output_file\n";
