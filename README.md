@@ -1,6 +1,6 @@
 # CoevolNet
 
-This directory contains software and scripts to reproduce the co-evolutionary analysis performed in David Juan, Juliane Perner, Enrique Carrillo de Santa Pau, Simone Marsili, David Ochoa, Ho-Ryun Chung, Martin Vingron, Daniel Rico and Alfonso Valencia. doi: http://dx.doi.org/10.1101/008821
+This directory contains software and scripts to reproduce the co-evolutionary analysis performed in: David Juan, Juliane Perner, Enrique Carrillo de Santa Pau, Simone Marsili, David Ochoa, Ho-Ryun Chung, Martin Vingron, Daniel Rico and Alfonso Valencia. doi: http://dx.doi.org/10.1101/008821
 
 ## Distance matrix preparation
 
