@@ -89,7 +89,7 @@ close TAX2SPEC;
 
 
 open ORTTREE_FILE, ">$output_file" or die "I couldn't open $output_file\n";
-print ORTTREE_FILE "Prot-COG";
+print ORTTREE_FILE "Prot-Tree";
 
 
 for(my $i=0;$i<@spec_names;$i++)
