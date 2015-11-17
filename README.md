@@ -4,7 +4,8 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 
 ## Distance matrix preparation
 
-##Files
+## Files
+
 -  Set of metazoan protein trees placed in the same local directory retrieved from eggNOG database (http://eggnog.embl.de/version_4.0.beta/data/downloads/trees/meNOG.trees.tar.gz)
 -  Species tree provided in https://github.com/ChromatinNetwork/CoevolNet/blob/master/data/eggNOG_reference_species_tree.nh that contains all the species present in the protein trees.
 -  Tabular file with the taxIds and names of the species of interest provided at https://github.com/ChromatinNetwork/CoevolNet/blob/master/data/eggNOG_metazoa_species_taxid_spec.txt. It only contain those especies included in our distance matrix)
@@ -21,6 +22,39 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 
 ./get_orthologs.pl -t \</path_to_treebest/\>treebest -s \<path_to_data/\>eggNOG_metazoa_species_taxid_spec.txt -r \<path_to_data/\>eggNOG_reference_species_tree.nh -d \<path_to_directory_containing_eggNOG_trees/\>reformatted/
 
-### 2) BBH orthology distance matrix
+### 3) BBH orthology distance matrix
 
 ./get_bbh_orthology_matrix.pl -r 10090  -s \<path_to_data/\>eggNOG_metazoa_species_taxid_spec.txt -d1 \<path_to_directory_containing_eggNOG_trees/\>reformatted/core/sdi/ -d2 \<path_to_directory_containing_eggNOG_trees/\>reformatted/core/sdi/ortho/ -o \<output_file\>
+
+## Co-evolutionary scores calculation
+
+### Files
+
+- Fortran src for pseudo-likelihood maximization in src/fort-src
+- scripts/pre.py: pre-process the distance matrix and prepare an input for co-evolutionary analysis
+- scripts/dump.py: post-process scores 
+- results/SCORES: reference scores values 
+- run_analysis.bash: simple script running all the steps of the analysis
+
+### 0) compile mpl 
+(cd src/fort-src; make)
+
+### 1) pre-process the distance matrix and prepare an input for co-evolutionary analysis
+./scripts/pre.py -d <distance matrix file> -l data/list_of_proteins > <mpl input>
+
+### 2) analyse the data 
+./src/fort-src/mpl -i <mpl input> -l 0.01 
+
+### 3) post-process scores 
+./scripts/dump.py -s <mpl input>.scores -p data/list_of_proteins > <scores file>
+
+### 4) check diffs between <scores file> and results/SCORES
+
+or: 
+### compile, run the analysis and check results 
+./run_analysis.bash -d <distance matrix file> -l data/list_of_proteins > -o results
+
+
+
+
+
