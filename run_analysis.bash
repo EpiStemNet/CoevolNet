@@ -117,7 +117,7 @@ echo "computing co-evolutionary scores..."
 # analyse data and map results 
 (cd $out_dir && 
     $src_dir/mpl -i input -l $lambda ;
-    $scripts_dir/dump.py -s input.scores -p $list_of_proteins > co-evolutionary_scores; 
+    $scripts_dir/dump.py -s input.scores -p $list_of_proteins > scores; 
 ) >> $out_dir/log 2>&1; 
 
 echo '
@@ -128,7 +128,7 @@ Checking results
 
 # check diffs 
 (cd $out_dir && 
-    if ! cmp co-evolutionary_scores $root/results/CO-EVOLUTIONARY_SCORES >/dev/null 2>&1; then
+    if ! cmp scores $root/results/SCORES >/dev/null 2>&1; then
 	echo "SCORES DIFFER!"
 	echo "check scores and log file
 "
