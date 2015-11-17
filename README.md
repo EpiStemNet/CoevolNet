@@ -44,20 +44,20 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 (cd src/fort-src; make)
 
 #### 1) pre-process the distance matrix and prepare an input for co-evolutionary analysis
-./scripts/pre.py -d <distance matrix file> -l data/list_of_proteins > <mpl input>
+./scripts/pre.py -d \<distance matrix file\> -l data/list_of_proteins \> \<mpl input\>
 
 #### 2) analyse the data 
-./src/fort-src/mpl -i <mpl input> -l 0.01 
+./src/fort-src/mpl -i <\mpl input\> -l 0.01 
 
 #### 3) post-process scores 
-./scripts/dump.py -s <mpl input>.scores -p data/list_of_proteins > <scores file>
+./scripts/dump.py -s \<mpl input\>.scores -p data/list_of_proteins \> \<scores file\>
 
-#### 4) check diffs between <scores file> and results/SCORES
+#### 4) check diffs between \<scores file\> and results/SCORES
 
 or: 
 
 #### compile, run the analysis and check results 
-./run_analysis.bash -d <distance matrix file> -l data/list_of_proteins > -o results
+./run_analysis.bash -d \<distance matrix file\> -l data/list_of_proteins \> -o results
 
 
 
