@@ -4,7 +4,7 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 
 ## Distance matrix preparation
 
-## Files
+### Files
 
 -  Set of metazoan protein trees placed in the same local directory retrieved from eggNOG database (http://eggnog.embl.de/version_4.0.beta/data/downloads/trees/meNOG.trees.tar.gz)
 -  Species tree provided in https://github.com/EpiStemNet/CoevolNet/blob/master/data/eggNOG_reference_species_tree.nh that contains all the species present in the protein trees.
@@ -57,7 +57,7 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 or: 
 
 #### compile, run the analysis and check results 
-./run_analysis.bash -d \<distance matrix file\> -l data/list_of_proteins \> -o results
+./run_analysis.bash -d \<distance matrix file\> -l data/list_of_proteins -o results
 
 
 
