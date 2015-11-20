@@ -19,7 +19,7 @@ Requirements/Tested on
 - GNU Make 3.81
 - gfortran/GCC 4.8
 - python 2.7
-- pandas 0.13.1
+- csv 1.0
 - numpy 1.8 
 '
 
