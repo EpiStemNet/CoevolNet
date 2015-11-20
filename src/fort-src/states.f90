@@ -1,16 +1,82 @@
+module parser
+  implicit none
+  private
+  public :: parser_nfields
+  ! space, tab, comma, colon, semicolon
+  character(1) :: delimiters(5)=[" ", achar(9), ",", ":", ";"]
+  
+contains
+
+  subroutine parser_nfields(line,parsed,nfields)
+    character,intent(in):: line*(*)
+    integer, intent(out) :: nfields
+    character,intent(out):: parsed*(*)
+    integer i, n, toks
+    
+    i = 1
+    n = len_trim(line)
+    toks = 0
+    nfields = 0
+    parsed = ""
+
+    outer: do while(i <= n)
+       do while(any(delimiters == line(i:i)))
+          i = i + 1
+          if (n < i) exit outer
+       enddo
+       toks = toks + 1
+       nfields = toks
+       if(nfields == 1) then 
+          parsed=trim(parsed)//line(i:i)
+       else
+          parsed=trim(parsed)//" "//line(i:i)
+       end if
+       do
+          i = i + 1
+          if (n < i) exit outer
+          if (any(delimiters == line(i:i))) exit
+          parsed=trim(parsed)//line(i:i)
+       enddo
+    enddo outer
+    
+  end subroutine parser_nfields
+
+end module parser
+
 program data
-  integer, parameter :: ng=58
-  integer, parameter :: np=3828
-  real :: mat(np,ng)
+  use parser, only: parser_nfields
+  integer :: ng=0
+  integer :: np=0
+  integer :: nfields
+  real, allocatable :: mat(:,:)
   integer :: err
   integer :: ip,ig,k
   integer :: ngt0,ind
-  integer :: states(ng)
+  integer, allocatable :: states(:)
   real, allocatable :: wlist(:),wsort(:)
   real :: qt0,qt1,qt2,qt3,qt4,md
   integer,parameter :: nin=5
   integer :: ns(nin+1)
   real :: qt(nin-1)
+  character(1280) :: longstring
+  character(100000) :: line, newline
+
+  ! read the first string
+  read(5,'(a)',iostat=err) line
+  call parser_nfields(line,newline,nfields)
+  rewind(5)
+  ng = nfields
+
+  np=0
+  do 
+     read(5,'(a)',iostat=err) line
+     if(err /= 0) exit
+     np = np + 1
+  end do
+  rewind(5)
+
+  allocate(mat(np,ng),stat=err)
+  allocate(states(ng),stat=err)
 
   do ip=1,np
      read(*,*) mat(ip,:)

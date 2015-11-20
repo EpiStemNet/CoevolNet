@@ -6,7 +6,7 @@
 ##################################
 
 import sys
-import pandas
+import csv
 import numpy as np
 
 head = """
@@ -40,9 +40,22 @@ fdat,flst,nrandom = get_command(head)
 list_of_proteins = [line.split()[0] for line in open(flst,"r")]
 protein_names = {line.split()[0]: line.split()[1] for line in open(flst,"r")}
 
-df = pandas.read_table(fdat).fillna(-1.0)
+datain = list(csv.reader(open(fdat, 'rb'), delimiter='\t'))
 
-data = df.as_matrix(list_of_proteins)
+n=0
+all_species = []
+data = []
+for line in datain: 
+    if n == 0: 
+        all_proteins = line[1:]
+        inds = [all_proteins.index(x) for x in list_of_proteins]
+    else:
+        all_species.append(line[0])
+        longlst = [float(x) if x != "NA" else -1.0 for x in line[1:]]
+        shortlst = [longlst[k] for k in inds]
+        data.append(shortlst)
+    n+=1
+data = np.asarray(data)
 
 ndata,nprot = np.shape(data)
 for d in range(ndata):
