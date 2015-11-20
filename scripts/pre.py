@@ -25,7 +25,6 @@ def get_command(description):
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=description, epilog=" ")
     parser.add_argument("-d","--distances", type=str, help="table of distances file")
     parser.add_argument("-p","--proteins", type=str, help="list of proteins file")
-    parser.add_argument("-r","--nrandom", type=int, help="dump r additional data files (1.rdata,2.rdata,...,r.rdata) for r random subsets of proteins", default=0)
 
     args = parser.parse_args()
 
@@ -33,46 +32,24 @@ def get_command(description):
         parser.print_help()
         sys.exit(1)
 
-    return(args.distances,args.proteins,args.nrandom)
+    return(args.distances,args.proteins)
 
-fdat,flst,nrandom = get_command(head)
+fdat,flst = get_command(head)
 
 list_of_proteins = [line.split()[0] for line in open(flst,"r")]
 protein_names = {line.split()[0]: line.split()[1] for line in open(flst,"r")}
 
 datain = list(csv.reader(open(fdat, 'rb'), delimiter='\t'))
+#datain = np.asarray(datain)
+datain = np.transpose(np.asarray(datain)) # tranpose the original data matrix
 
-n=0
-all_species = []
-data = []
-for line in datain: 
-    if n == 0: 
-        all_proteins = line[1:]
-        inds = [all_proteins.index(x) for x in list_of_proteins]
-    else:
-        all_species.append(line[0])
-        longlst = [float(x) if x != "NA" else -1.0 for x in line[1:]]
-        shortlst = [longlst[k] for k in inds]
-        data.append(shortlst)
-    n+=1
-data = np.asarray(data)
+all_proteins = datain[0,1:]
+all_species = datain[1:,0]
+data = datain[1:,1:]
+data[data=='NA']='-1.0'
+inds = [np.where(all_proteins == x)[0][0] for x in list_of_proteins]
 
 ndata,nprot = np.shape(data)
 for d in range(ndata):
-    print " ".join([str(x) for x in data[d,:]])
-
-if nrandom > 0: 
-    columns = df.columns[1:]
-    ncolumns = len(columns)
-    
-    suffix='.rdat'
-    for k in range(nrandom): 
-        f = open(str(k)+suffix,'w')
-        indxs = np.random.randint(ncolumns-1,size=nprot)
-        list_of_proteins = columns[indxs]
-        data = df.as_matrix(list_of_proteins)
-        for d in range(ndata):
-            f.write(" ".join([str(x) for x in data[d,:]])+"\n")
-        f.close()
-    
+    print " ".join([str(x) for x in data[d,inds]])
 
