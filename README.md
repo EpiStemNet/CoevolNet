@@ -8,7 +8,7 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 
 -  Set of metazoan protein trees placed in the same local directory retrieved from eggNOG database (http://eggnog.embl.de/version_4.0.beta/data/downloads/trees/meNOG.trees.tar.gz)
 -  Species tree provided in https://github.com/EpiStemNet/CoevolNet/blob/master/data/eggNOG_reference_species_tree.nh that contains all the species present in the protein trees.
--  Tabular file with the taxIds and names of the species of interest provided at https://github.com/EpisStemNet/CoevolNet/blob/master/data/eggNOG_metazoa_species_taxid_spec.txt. It only contain those especies included in our distance matrix)
+-  Tabular file with the taxIds and names of the species of interest provided at https://github.com/EpiStemNet/CoevolNet/blob/master/data/eggNOG_metazoa_species_taxid_spec.txt. It only contain those especies included in our distance matrix)
 -  reformat_eggNOG_trees.pl: script provided in https://github.com/EpiStemNet/CoevolNet/blob/master/scripts/reformat_eggNOG_trees.pl to reformat trees in newick format from eggNOG to be correctly read by treebest
 -  get_orthologs.pl: script provided in https://github.com/EpiStemNet/CoevolNet/blob/master/scripts/get_orthologs.pl to get orthology assignments from trees obtained by reformat_eggNOG_trees.pl using treebest
 -  get_bbh_orthology_matrix.pl: script provided in https://github.com/EpiStemNet/CoevolNet/blob/master/scripts/get_bbh_orthology_matrix.pl to select bbh orthologs (sortest bidirectional cophenetic distances) and build a distance matrix for all the proteins in a reference proteome.
