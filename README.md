@@ -35,37 +35,33 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 - Fortran src for pseudo-likelihood maximization in src/fort-src
 - scripts/pre.py: pre-process the distance matrix and prepare an input for co-evolutionary analysis
 - scripts/dump.py: post-process scores 
+- data/list_od_proteins: list of proteins included in the analysis
 - results/SCORES: reference scores values 
 - run_analysis.bash: simple script running all the steps of the analysis
 
 ### Steps
 
-#### 1) download, gunzip and move to your \<path\_to\_data\> directory the distance matrix file: 
-
+#### 1) download, gunzip and move to the ./data directory the distance matrix file: 
 http://epistemnet.bioinfo.cnio.es/coevolution/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz
 
-#### 2) copy the list\_of\_proteins file to your \<path\_to\_data\> directory
-
-https://github.com/EpiStemNet/CoevolNet/blob/master/data/list_of_proteins
-
-#### 3) compile mpl 
+#### 2) compile mpl 
 (cd src/fort-src; make)
 
-#### 4) pre-process the distance matrix and prepare an input for co-evolutionary analysis
-./scripts/pre.py -d \<path\_to\_data\>/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist -l \<path\_to\_data\>/list_of_proteins \> \<mpl\_input\>
+#### 3) pre-process the distance matrix and prepare an input for co-evolutionary analysis
+./scripts/pre.py -d ./data/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist -l ./data/list_of_proteins \> \<mpl\_input\>
 
-#### 5) analyse the data 
+#### 4) analyse the data 
 ./src/fort-src/mpl -i <\mpl\_input\> -l 0.01 
 
-#### 6) post-process scores 
-./scripts/dump.py -s \<mpl\_input\>.scores -p \<path\_to\_data\>/list_of_proteins \> \<scores\_file\>
+#### 5) post-process scores 
+./scripts/dump.py -s \<mpl\_input\>.scores -p ./data/list_of_proteins \> \<scores\_file\>
 
-#### 7) check diffs between \<scores\_file\> and results/SCORES
+#### 6) check diffs between \<scores\_file\> and ./results/SCORES
 
 or: 
 
-#### compile, run the analysis and check results 
-./run_analysis.bash -d \<path\_to\_data\>/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist -l \<path\_to\_data\>/list_of_proteins -o results
+#### 2) compile, 3) pre-process, 4) run the analysis, 5) post-process and 6) check results running: 
+./run_analysis.bash -d ./data/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist -l ./data/list_of_proteins -o ./results
 
 
 
