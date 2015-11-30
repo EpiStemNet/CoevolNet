@@ -35,7 +35,7 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 - Fortran src for pseudo-likelihood maximization in src/fort-src
 - scripts/pre.py: pre-process the distance matrix and prepare an input for co-evolutionary analysis
 - scripts/dump.py: post-process scores 
-- data/list_od_proteins: list of proteins included in the analysis
+- data/list_of_proteins: list of proteins included in the analysis
 - results/SCORES: reference scores values 
 - run_analysis.bash: simple script running all the steps of the analysis
 
