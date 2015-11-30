@@ -41,26 +41,28 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 
 ### Steps
 
-#### 1) download, gunzip and move to the ./data directory the distance matrix file: 
-http://epistemnet.bioinfo.cnio.es/coevolution/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz
+#### 0) download, gunzip and move to the ./data directory the distance matrix file: 
+(cd data/; wget "http://epistemnet.bioinfo.cnio.es/coevolution/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz"; gunzip bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz)
 
-#### 2) compile mpl 
+then: 
+
+#### 1) compile mpl 
 (cd src/fort-src; make)
 
-#### 3) pre-process the distance matrix and prepare an input for co-evolutionary analysis
+#### 2) pre-process the distance matrix and prepare an input for co-evolutionary analysis
 ./scripts/pre.py -d ./data/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist -l ./data/list_of_proteins \> \<mpl\_input\>
 
-#### 4) analyse the data 
+#### 3) analyse the data 
 ./src/fort-src/mpl -i <\mpl\_input\> -l 0.01 
 
-#### 5) post-process scores 
+#### 4) post-process scores 
 ./scripts/dump.py -s \<mpl\_input\>.scores -p ./data/list_of_proteins \> \<scores\_file\>
 
-#### 6) check diffs between \<scores\_file\> and ./results/SCORES
+#### 5) check diffs between \<scores\_file\> and ./results/SCORES
 
 or: 
 
-#### 2) compile, 3) pre-process, 4) run the analysis, 5) post-process and 6) check results running: 
+#### 1) compile, 2) pre-process, 3) run the analysis, 4) post-process and 5) check results running: 
 ./run_analysis.bash -d ./data/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist -l ./data/list_of_proteins -o ./results
 
 
