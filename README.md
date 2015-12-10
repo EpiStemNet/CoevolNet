@@ -42,7 +42,7 @@ This directory contains software and scripts to reproduce the co-evolutionary an
 ### Steps
 
 #### 0) download, gunzip and move to the ./data directory the distance matrix file: 
-(cd data/; wget "http://epistemnet.bioinfo.cnio.es/coevolution/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz"; gunzip bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz)
+(cd data/; wget "http://epistemnet.bioinfo.cnio.es/download/coevolution/bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz"; gunzip bbh_Mus_musculus_eggNOGv4.0_metazoa.dist.gz)
 
 then: 
 
